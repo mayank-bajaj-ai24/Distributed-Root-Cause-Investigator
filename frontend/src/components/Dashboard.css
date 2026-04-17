@@ -1,0 +1,131 @@
+/* Dashboard.css */
+
+.dashboard-counts {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.dashboard-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.dashboard-count.healthy  { color: var(--status-healthy); }
+.dashboard-count.warning  { color: var(--status-warning); }
+.dashboard-count.critical { color: var(--status-critical); }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: left;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  animation: fadeIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.service-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.service-card--critical {
+  border-color: rgba(239, 68, 68, 0.5); /* using the standard red */
+}
+
+.service-card--warning {
+  border-color: rgba(255, 190, 11, 0.2);
+}
+
+.service-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.service-card__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.service-card--critical .service-card__status-dot {
+  background: var(--status-critical);
+}
+
+.service-card__name {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.service-card__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.service-card__metric {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.service-card__metric-label {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 38px;
+  flex-shrink: 0;
+}
+
+.service-card__metric-bar-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.service-card__metric-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease-out;
+}
+
+.service-card__metric-value {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  width: 45px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.service-card__metric-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.service-card__metric-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

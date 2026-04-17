@@ -1,0 +1,206 @@
+/* CausalGraph.css */
+
+.causal-panel {
+  border-color: rgba(0, 200, 150, 0.2);
+}
+
+.causal-type-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border: 1px solid;
+  border-radius: 20px;
+}
+
+/* Chain Flow */
+.causal-chain-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: var(--space-lg) var(--space-md);
+  overflow-x: auto;
+  margin-bottom: var(--space-lg);
+}
+
+.causal-chain-flow__item {
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.causal-chain-flow__item:nth-child(1) { animation-delay: 0.1s; }
+.causal-chain-flow__item:nth-child(2) { animation-delay: 0.3s; }
+.causal-chain-flow__item:nth-child(3) { animation-delay: 0.5s; }
+.causal-chain-flow__item:nth-child(4) { animation-delay: 0.7s; }
+.causal-chain-flow__item:nth-child(5) { animation-delay: 0.9s; }
+
+.causal-chain-flow__node {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  min-width: 120px;
+  text-align: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.causal-chain-flow__node:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+}
+
+.causal-chain-flow__node--root {
+  border-color: var(--accent-magenta);
+  background: rgba(255, 0, 110, 0.08);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.15);
+}
+
+.causal-chain-flow__root-badge {
+  display: block;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-magenta);
+  margin-bottom: 2px;
+}
+
+.causal-chain-flow__node-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Arrow */
+.causal-chain-flow__arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 var(--space-xs);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.causal-chain-flow__arrow-line {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.causal-chain-flow__arrow-fill {
+  height: 100%;
+  background: var(--accent-emerald);
+  border-radius: 2px;
+  animation: causalPulse 2s ease-in-out infinite;
+}
+
+@keyframes causalPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.causal-chain-flow__arrow-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+  gap: 1px;
+}
+
+.causal-chain-flow__lag {
+  font-size: 0.65rem;
+  color: var(--accent-amber);
+  font-weight: 600;
+}
+
+.causal-chain-flow__strength {
+  font-size: 0.6rem;
+  color: var(--text-tertiary);
+}
+
+.causal-chain-flow__arrow-head {
+  font-size: 0.9rem;
+  color: var(--accent-emerald);
+  margin-top: -2px;
+  display: none;
+}
+
+/* Edge Details */
+.causal-edges {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-md);
+}
+
+.causal-edges__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.causal-edges__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-sm);
+}
+
+.causal-edge-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.causal-edge-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.78rem;
+  margin-bottom: var(--space-sm);
+}
+
+.causal-edge-card__arrow {
+  color: var(--accent-emerald);
+  font-weight: 700;
+}
+
+.causal-edge-card__metrics {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.causal-edge-card__metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.causal-edge-card__metric-label {
+  font-size: 0.6rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.causal-edge-card__metric-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.causal-edge-card__bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.causal-edge-card__bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease-out;
+}

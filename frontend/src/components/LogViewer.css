@@ -1,0 +1,121 @@
+/* LogViewer.css */
+
+.log-panel {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.log-filter-select {
+  appearance: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 5px 28px 5px 10px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238892a8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.log-filter-select option {
+  background: var(--bg-secondary);
+}
+
+.log-level-filters {
+  display: flex;
+  gap: 2px;
+}
+
+.log-level-btn {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.log-level-btn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+}
+
+.log-level-btn.active {
+  color: var(--level-color, var(--accent-blue));
+  border-color: var(--level-color, var(--accent-blue));
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.log-entries {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 280px;
+  padding: var(--space-xs);
+}
+
+.log-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: 3px var(--space-sm);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  transition: background var(--transition-fast);
+}
+
+.log-entry:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.log-entry--error {
+  background: rgba(255, 0, 110, 0.03);
+}
+
+.log-entry--error:hover {
+  background: rgba(255, 0, 110, 0.06);
+}
+
+.log-entry__time {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  font-size: 0.68rem;
+  width: 60px;
+}
+
+.log-entry__level {
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  width: 44px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.log-entry__message {
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+.log-entry--error .log-entry__message {
+  color: var(--text-primary);
+}

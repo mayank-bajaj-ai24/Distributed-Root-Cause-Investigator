@@ -1,0 +1,78 @@
+/* MetricCharts.css */
+
+.metric-panel {
+  min-height: 360px;
+}
+
+.metric-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+}
+
+.metric-tab {
+  padding: 8px 14px;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.metric-tab:hover {
+  color: var(--text-secondary);
+}
+
+.metric-tab.active {
+  color: var(--tab-color, var(--accent-blue));
+  border-bottom-color: var(--tab-color, var(--accent-blue));
+}
+
+.chart-wrapper {
+  padding-top: var(--space-sm);
+}
+
+.chart-tooltip {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.75rem;
+}
+
+.chart-tooltip__time {
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  margin-bottom: 4px;
+}
+
+.chart-tooltip__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.chart-tooltip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.panel__title-service {
+  font-size: 0.75rem;
+  color: var(--accent-blue);
+  background: var(--accent-blue-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 4px;
+}

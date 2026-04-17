@@ -1,0 +1,404 @@
+/* RootCausePanel.css */
+
+/* Confidence & Impact Row */
+.rca-ci-row {
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.rca-ci-gauge,
+.rca-ci-impact,
+.rca-ci-blast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Confidence Gauge Ring */
+.rca-ci-gauge__ring {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.rca-ci-gauge__svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.rca-ci-gauge__bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 3;
+}
+
+.rca-ci-gauge__fg {
+  fill: none;
+  stroke: var(--accent-emerald);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease-out;
+}
+
+.rca-ci-gauge__value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rca-ci-gauge__info,
+.rca-ci-impact__info,
+.rca-ci-blast__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rca-ci-gauge__label,
+.rca-ci-impact__label,
+.rca-ci-blast__label {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rca-ci-gauge__tag,
+.rca-ci-impact__tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.rca-ci-gauge__tag--very-high,
+.rca-ci-gauge__tag--high { color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12); }
+.rca-ci-gauge__tag--moderate { color: var(--accent-amber); background: var(--accent-amber-dim); }
+.rca-ci-gauge__tag--low,
+.rca-ci-gauge__tag--very-low { color: var(--accent-magenta); background: var(--accent-magenta-dim); }
+
+.rca-ci-impact__tag--critical { color: var(--accent-magenta); background: var(--accent-magenta-dim); }
+.rca-ci-impact__tag--high { color: var(--accent-amber); background: var(--accent-amber-dim); }
+.rca-ci-impact__tag--medium { color: var(--accent-blue); background: var(--accent-blue-dim); }
+.rca-ci-impact__tag--low { color: var(--text-secondary); background: rgba(255, 255, 255, 0.05); }
+
+/* Impact Score Box */
+.rca-ci-impact__score-box {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.rca-ci-impact__number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.rca-ci-impact__out-of {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
+
+/* Blast Radius */
+.rca-ci-blast__visual {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.rca-ci-blast__count {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-amber);
+  line-height: 1;
+}
+
+.rca-ci-blast__sep {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+  margin: 0 2px;
+}
+
+.rca-ci-blast__total {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+}
+
+.rca-ci-blast__user-facing {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--accent-magenta);
+  background: var(--accent-magenta-dim);
+  padding: 1px 6px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.rca-panel {
+  border-color: rgba(255, 0, 110, 0.2);
+}
+
+.rca-panel--healthy {
+  border-color: var(--border-subtle);
+}
+
+.rca-healthy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.rca-healthy__icon {
+  font-size: 1.5rem;
+}
+
+/* Summary */
+.rca-summary {
+  background: rgba(255, 0, 110, 0.06);
+  border: 1px solid rgba(255, 0, 110, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.rca-summary__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.rca-summary__icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.rca-summary__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.rca-summary__confidence {
+  font-size: 0.8rem;
+  color: var(--accent-magenta);
+  font-weight: 500;
+}
+
+/* Chain */
+.rca-chain {
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-sm);
+}
+
+.rca-chain__node {
+  margin-bottom: var(--space-sm);
+}
+
+.rca-chain__node-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.rca-chain__node-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.rca-chain__connector {
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.rca-chain__connector--root {
+  color: var(--accent-magenta);
+}
+
+.rca-chain__node-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-magenta);
+  background: var(--accent-magenta-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.rca-chain__node-service {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.rca-chain__node-issue,
+.rca-chain__node-effect {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.rca-chain__expand {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.rca-chain__severity-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.rca-chain__severity-badge--critical {
+  color: var(--accent-magenta);
+  background: var(--accent-magenta-dim);
+}
+
+.rca-chain__severity-badge--high {
+  color: var(--accent-amber);
+  background: var(--accent-amber-dim);
+}
+
+.rca-chain__severity-badge--medium {
+  color: var(--accent-blue);
+  background: var(--accent-blue-dim);
+}
+
+.rca-chain__severity-badge--low {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.rca-chain__evidence {
+  padding: var(--space-sm) var(--space-md) var(--space-sm) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.rca-chain__evidence-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  padding: 4px 0;
+}
+
+.rca-chain__evidence-icon {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.rca-chain__branch-line {
+  width: 1px;
+  height: 8px;
+  background: var(--border-medium);
+  margin-left: 22px;
+}
+
+/* Score Breakdown */
+.rca-scores__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.rca-scores__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.rca-score-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.rca-score-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.rca-score-card__header .mono {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.rca-score-card__total {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.rca-score-card__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rca-score-card__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.rca-score-card__bar-label {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  width: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rca-score-card__bar-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.rca-score-card__bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease-out;
+}
+
+.rca-score-card__bar-fill--log    { background: var(--accent-purple); }
+.rca-score-card__bar-fill--metric { background: var(--accent-blue); }
+.rca-score-card__bar-fill--graph  { background: var(--accent-emerald); }

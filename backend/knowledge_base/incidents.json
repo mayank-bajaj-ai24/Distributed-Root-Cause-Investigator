@@ -1,0 +1,272 @@
+[
+  {
+    "incident_id": "INC-SEED01",
+    "title": "Memory Leak in Inventory Service",
+    "timestamp": "2025-06-14T08:30:00",
+    "root_cause_service": "inventory-service",
+    "affected_services": [
+      "inventory-service",
+      "inventory-db",
+      "order-service",
+      "api-gateway"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "inventory-service",
+        "inventory-db",
+        "order-service",
+        "notification-service",
+        "api-gateway"
+      ],
+      "metric_profile": {
+        "memory_percent": 8.5,
+        "cpu_percent": 5.2,
+        "latency_ms": 4.1,
+        "error_rate": 3.8
+      },
+      "log_keywords": [
+        "memory",
+        "heap",
+        "gc",
+        "timeout",
+        "exhausted",
+        "leak"
+      ],
+      "root_cause_type": "Memory Leak Detected",
+      "root_cause_service": "inventory-service",
+      "severity_distribution": {
+        "CRITICAL": 1,
+        "HIGH": 2,
+        "MEDIUM": 1,
+        "LOW": 1
+      },
+      "num_affected": 5
+    },
+    "resolution": "Restart inventory-service pods and investigate object cache leak in InventoryCache.getAll()",
+    "time_to_resolve": "5 minutes",
+    "occurrence_count": 3
+  },
+  {
+    "incident_id": "INC-SEED05",
+    "title": "Cascading Timeout from Inventory Leak",
+    "timestamp": "2025-06-10T16:00:00",
+    "root_cause_service": "order-service",
+    "affected_services": [
+      "order-service",
+      "inventory-service",
+      "api-gateway"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "order-service",
+        "inventory-service",
+        "api-gateway",
+        "inventory-db"
+      ],
+      "metric_profile": {
+        "latency_ms": 6.0,
+        "error_rate": 5.5,
+        "memory_percent": 4.5,
+        "cpu_percent": 3.5
+      },
+      "log_keywords": [
+        "timeout",
+        "memory",
+        "heap",
+        "gc",
+        "error",
+        "circuit",
+        "exhausted"
+      ],
+      "root_cause_type": "Latency Spike Detected",
+      "root_cause_service": "order-service",
+      "severity_distribution": {
+        "CRITICAL": 1,
+        "HIGH": 1,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "num_affected": 3
+    },
+    "resolution": "Root cause was upstream memory leak in inventory-service. Restart inventory pods, then order-service recovers automatically.",
+    "time_to_resolve": "7 minutes",
+    "occurrence_count": 2
+  },
+  {
+    "incident_id": "INC-SEED02",
+    "title": "DB Connection Pool Exhaustion in User DB",
+    "timestamp": "2025-06-13T14:15:00",
+    "root_cause_service": "user-db",
+    "affected_services": [
+      "user-db",
+      "auth-service",
+      "api-gateway"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "user-db",
+        "auth-service",
+        "api-gateway"
+      ],
+      "metric_profile": {
+        "connections": 9.2,
+        "latency_ms": 7.5,
+        "error_rate": 5.1,
+        "cpu_percent": 3.0
+      },
+      "log_keywords": [
+        "connection",
+        "pool",
+        "exhausted",
+        "timeout",
+        "unreachable"
+      ],
+      "root_cause_type": "Connection Pool Exhaustion",
+      "root_cause_service": "user-db",
+      "severity_distribution": {
+        "CRITICAL": 1,
+        "HIGH": 1,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "num_affected": 3
+    },
+    "resolution": "Scale up DB connection pool max_connections from 50 to 100, and fix connection leak in AuthService.validateToken()",
+    "time_to_resolve": "8 minutes",
+    "occurrence_count": 2
+  },
+  {
+    "incident_id": "INC-SEED03",
+    "title": "Network Partition \u2014 Payment Gateway Isolated",
+    "timestamp": "2025-06-12T20:45:00",
+    "root_cause_service": "payment-gateway",
+    "affected_services": [
+      "payment-gateway",
+      "payment-service",
+      "order-service",
+      "api-gateway"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "payment-gateway",
+        "payment-service",
+        "order-service",
+        "api-gateway"
+      ],
+      "metric_profile": {
+        "error_rate": 9.5,
+        "latency_ms": 8.0
+      },
+      "log_keywords": [
+        "network",
+        "unreachable",
+        "timeout",
+        "connection",
+        "circuit",
+        "partition"
+      ],
+      "root_cause_type": "Network Partition",
+      "root_cause_service": "payment-gateway",
+      "severity_distribution": {
+        "CRITICAL": 2,
+        "HIGH": 1,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "num_affected": 4
+    },
+    "resolution": "Restore network route to payment-gateway subnet. Root cause: misconfigured firewall rule in VPC peering.",
+    "time_to_resolve": "12 minutes",
+    "occurrence_count": 1
+  },
+  {
+    "incident_id": "INC-SEED04",
+    "title": "CPU Spike in Search Service \u2014 Runaway Query",
+    "timestamp": "2025-06-11T11:20:00",
+    "root_cause_service": "search-service",
+    "affected_services": [
+      "search-service",
+      "cache-redis",
+      "api-gateway"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "search-service",
+        "cache-redis",
+        "api-gateway"
+      ],
+      "metric_profile": {
+        "cpu_percent": 9.0,
+        "latency_ms": 6.5,
+        "memory_percent": 4.0
+      },
+      "log_keywords": [
+        "cpu",
+        "timeout",
+        "exhausted",
+        "spike"
+      ],
+      "root_cause_type": "CPU Spike Detected",
+      "root_cause_service": "search-service",
+      "severity_distribution": {
+        "CRITICAL": 1,
+        "HIGH": 1,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "num_affected": 3
+    },
+    "resolution": "Kill runaway full-text search query and add query timeout limit of 5s in search-service config",
+    "time_to_resolve": "3 minutes",
+    "occurrence_count": 2
+  },
+  {
+    "incident_id": "INC-B4F1FC",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-17T22:09:57.236838",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "inventory-service",
+      "order-service",
+      "search-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "inventory-service",
+        "order-service",
+        "search-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db"
+      ],
+      "metric_profile": {},
+      "log_keywords": [
+        "error",
+        "heap",
+        "memory",
+        "circuit",
+        "gc"
+      ],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 3,
+        "HIGH": 0,
+        "MEDIUM": 5,
+        "LOW": 3
+      },
+      "num_affected": 8
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 26691.428638530826
+  }
+]

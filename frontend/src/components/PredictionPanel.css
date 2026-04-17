@@ -1,0 +1,192 @@
+/* PredictionPanel.css */
+
+.prediction-panel {
+  border-color: rgba(255, 170, 0, 0.2);
+}
+
+.prediction-panel--clear {
+  border-color: var(--border-subtle);
+}
+
+.prediction-clear {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.prediction-clear__icon {
+  font-size: 1.5rem;
+}
+
+.prediction-badge-pulse {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Grid */
+.prediction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+/* Card */
+.prediction-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: all var(--transition-fast);
+  animation: fadeIn 0.3s ease-out both;
+}
+
+.prediction-card:nth-child(1) { animation-delay: 0.05s; }
+.prediction-card:nth-child(2) { animation-delay: 0.1s; }
+.prediction-card:nth-child(3) { animation-delay: 0.15s; }
+
+.prediction-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+.prediction-card--critical {
+  border-left: 3px solid var(--accent-magenta);
+}
+
+.prediction-card--high {
+  border-left: 3px solid var(--accent-amber);
+}
+
+.prediction-card--medium {
+  border-left: 3px solid var(--accent-blue);
+}
+
+.prediction-card--low {
+  border-left: 3px solid var(--text-tertiary);
+}
+
+.prediction-card--urgent {
+  animation: urgentPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 110, 0); }
+  50% { box-shadow: 0 0 15px 2px rgba(255, 0, 110, 0.15); }
+}
+
+/* Card Header */
+.prediction-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.prediction-card__service {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.prediction-card__severity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.prediction-card__severity-dot--critical { background: var(--accent-magenta); }
+.prediction-card__severity-dot--high { background: var(--accent-amber); }
+.prediction-card__severity-dot--medium { background: var(--accent-blue); }
+.prediction-card__severity-dot--low { background: var(--text-tertiary); }
+
+.prediction-card__countdown {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-amber);
+  background: var(--accent-amber-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.prediction-card__countdown--imminent {
+  color: var(--accent-magenta);
+  background: var(--accent-magenta-dim);
+  animation: countdownBlink 1s ease-in-out infinite;
+}
+
+@keyframes countdownBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Message */
+.prediction-card__message {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
+}
+
+/* Details Grid */
+.prediction-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.prediction-card__detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.prediction-card__detail-label {
+  font-size: 0.6rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prediction-card__detail-value {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Risk Bar */
+.prediction-card__risk {
+  margin-top: var(--space-sm);
+}
+
+.prediction-card__risk-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prediction-card__risk-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.prediction-card__risk-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease-out;
+}
