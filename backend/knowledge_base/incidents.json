@@ -268,5 +268,293 @@
     "time_to_resolve": null,
     "occurrence_count": 1,
     "fused_score": 26691.428638530826
+  },
+  {
+    "incident_id": "INC-FF7C71",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:09:55.577545",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "order-service",
+      "search-service",
+      "inventory-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db",
+      "inventory-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "order-service",
+        "search-service",
+        "inventory-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db",
+        "inventory-db"
+      ],
+      "metric_profile": {},
+      "log_keywords": [],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 0,
+        "HIGH": 1,
+        "MEDIUM": 8,
+        "LOW": 2
+      },
+      "num_affected": 9
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 0.5439922615179291
+  },
+  {
+    "incident_id": "INC-6378D3",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:10:53.804078",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "order-service",
+      "search-service",
+      "inventory-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db",
+      "inventory-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "order-service",
+        "search-service",
+        "inventory-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db",
+        "inventory-db"
+      ],
+      "metric_profile": {},
+      "log_keywords": [],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 0,
+        "HIGH": 1,
+        "MEDIUM": 8,
+        "LOW": 2
+      },
+      "num_affected": 9
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 0.5439922615179291
+  },
+  {
+    "incident_id": "INC-DFFA2D",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:11:34.486131",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "inventory-service",
+      "order-service",
+      "search-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "inventory-service",
+        "order-service",
+        "search-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db"
+      ],
+      "metric_profile": {
+        "latency_ms": 3.2346371803232246,
+        "error_rate": 3.202587547286359
+      },
+      "log_keywords": [
+        "error",
+        "memory",
+        "heap",
+        "gc",
+        "circuit"
+      ],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 3,
+        "HIGH": 0,
+        "MEDIUM": 5,
+        "LOW": 3
+      },
+      "num_affected": 8
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 3,
+    "fused_score": 15747.220608487329,
+    "last_seen": "2026-04-18T08:20:44.927598"
+  },
+  {
+    "incident_id": "INC-B4CDD8",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:14:39.997822",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "order-service",
+      "search-service",
+      "inventory-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db",
+      "inventory-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "order-service",
+        "search-service",
+        "inventory-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db",
+        "inventory-db"
+      ],
+      "metric_profile": {},
+      "log_keywords": [],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 0,
+        "HIGH": 1,
+        "MEDIUM": 8,
+        "LOW": 2
+      },
+      "num_affected": 9
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 0.5439922615179291
+  },
+  {
+    "incident_id": "INC-3FCA54",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:15:54.744912",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "order-service",
+      "search-service",
+      "inventory-service",
+      "payment-service",
+      "auth-service",
+      "notification-service",
+      "user-db",
+      "inventory-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "order-service",
+        "search-service",
+        "inventory-service",
+        "payment-service",
+        "auth-service",
+        "notification-service",
+        "user-db",
+        "inventory-db"
+      ],
+      "metric_profile": {},
+      "log_keywords": [],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 0,
+        "HIGH": 1,
+        "MEDIUM": 8,
+        "LOW": 2
+      },
+      "num_affected": 9
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 0.5439922615179291
+  },
+  {
+    "incident_id": "INC-103E10",
+    "title": "Root cause identified: api-gateway \u2014 Anomaly Detected",
+    "timestamp": "2026-04-18T08:17:49.478869",
+    "root_cause_service": "api-gateway",
+    "affected_services": [
+      "api-gateway",
+      "auth-service",
+      "user-db",
+      "search-service",
+      "inventory-service",
+      "payment-service",
+      "order-service",
+      "notification-service",
+      "inventory-db"
+    ],
+    "fingerprint": {
+      "affected_services": [
+        "api-gateway",
+        "auth-service",
+        "user-db",
+        "search-service",
+        "inventory-service",
+        "payment-service",
+        "order-service",
+        "notification-service",
+        "inventory-db"
+      ],
+      "metric_profile": {
+        "error_rate": 2.2547977589338988,
+        "latency_ms": 3.331961145380899,
+        "cpu_percent": 2.0629712535482887
+      },
+      "log_keywords": [
+        "pool",
+        "connection",
+        "exhausted",
+        "unreachable",
+        "timeout"
+      ],
+      "root_cause_type": "Anomaly Detected",
+      "root_cause_service": "api-gateway",
+      "severity_distribution": {
+        "CRITICAL": 3,
+        "HIGH": 0,
+        "MEDIUM": 6,
+        "LOW": 2
+      },
+      "num_affected": 9
+    },
+    "resolution": "AI Playbook: Execute mitigation protocol for anomalous target.",
+    "time_to_resolve": null,
+    "occurrence_count": 1,
+    "fused_score": 34579.63914810836
   }
 ]

@@ -193,7 +193,8 @@ def generate_dataset(scenario_id=None, duration=None, seed=42):
     duration = duration or config.SYNTHETIC_DURATION_SECONDS
     scenario = get_scenario(scenario_id) if scenario_id else None
 
-    base_time = datetime(2025, 6, 15, 10, 0, 0)
+    # Use current time so logs show realistic "just happened" timestamps
+    base_time = datetime.now() - timedelta(seconds=duration or config.SYNTHETIC_DURATION_SECONDS)
 
     # ── Build dependency graph ────────────────────────────────────
     graph = {

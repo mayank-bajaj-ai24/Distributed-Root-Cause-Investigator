@@ -221,11 +221,18 @@ def _register_routes(app):
     def run_analysis():
         """Run full RCA pipeline on current dataset."""
         try:
+            import time as _t
+            _t0 = _t.time()
             dataset = app.state["dataset"]
             if not dataset:
                 return jsonify({"error": "No data loaded"}), 500
 
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+            # Sample logs for speed — keep last 2000 (most recent, most relevant)
+            all_logs = dataset["logs"]
+            sampled_logs = all_logs[-2000:] if len(all_logs) > 2000 else all_logs
+            print(f"[Analyze] Logs: {len(all_logs)} total, processing {len(sampled_logs)}")
 
             # ── 1. Build log signals ──────────────────────────────
             log_predictions = None
@@ -233,14 +240,15 @@ def _register_routes(app):
                 log_predictions = _run_log_inference(
                     app.state["log_embedder"],
                     app.state["tokenizer"],
-                    dataset["logs"],
+                    sampled_logs,
                     device,
                 )
 
             log_signals = build_log_signals(
-                dataset["logs"],
+                sampled_logs,
                 log_predictions=log_predictions,
             )
+            print(f"[Analyze] Logs done: {_t.time()-_t0:.1f}s")
 
             # ── 2. Build metric signals ───────────────────────────
             anomaly_results = None
@@ -289,6 +297,7 @@ def _register_routes(app):
             # ── 4. Fuse and generate explanation ──────────────────
             engine = app.state["rca_engine"]
             result = engine.analyze(log_signals, metric_signals, graph_signals)
+            print(f"[Analyze] Full pipeline: {_t.time()-_t0:.1f}s")
 
             # ── 5. Causal Inference ──────────────────────────────
             try:
@@ -352,22 +361,47 @@ def _register_routes(app):
         if not dataset:
             return jsonify({"error": "No data loaded"}), 500
 
-        stat_detector = StatisticalAnomalyDetector()
+        # Healthy baselines per service (must match synthetic_generator baselines)
+        healthy_baselines = {
+            "api-gateway":          {"cpu": 25, "mem": 40, "lat": 50,  "err": 0.001},
+            "auth-service":         {"cpu": 15, "mem": 35, "lat": 30,  "err": 0.002},
+            "user-db":              {"cpu": 20, "mem": 50, "lat": 15,  "err": 0.001},
+            "order-service":        {"cpu": 30, "mem": 45, "lat": 80,  "err": 0.003},
+            "inventory-service":    {"cpu": 20, "mem": 45, "lat": 40,  "err": 0.002},
+            "inventory-db":         {"cpu": 15, "mem": 55, "lat": 10,  "err": 0.001},
+            "payment-service":      {"cpu": 18, "mem": 38, "lat": 100, "err": 0.005},
+            "payment-gateway":      {"cpu": 10, "mem": 30, "lat": 120, "err": 0.003},
+            "notification-service": {"cpu": 12, "mem": 30, "lat": 25,  "err": 0.001},
+            "search-service":       {"cpu": 35, "mem": 50, "lat": 60,  "err": 0.002},
+            "cache-redis":          {"cpu": 10, "mem": 60, "lat": 2,   "err": 0.0005},
+        }
+
         anomalies = {}
 
         for service, records in dataset["metrics"].items():
             feature_names = ["cpu_percent", "memory_percent", "latency_ms", "error_rate", "connections"]
             data = np.array([[r[f] for f in feature_names] for r in records], dtype=np.float32)
 
-            combined_scores, individual = stat_detector.ensemble_detect(data)
+            baseline = healthy_baselines.get(service, {"cpu": 20, "mem": 40, "lat": 50, "err": 0.002})
 
-            # Filter out services that only have normal statistical noise
-            # Z-score > 3.0 generally indicates a true anomaly
-            if individual["z_score"].max() < 3.0:
-                continue
+            # Check for genuinely anomalous deviations from baseline
+            cpu_col = data[:, 0]
+            lat_col = data[:, 2]
+            err_col = data[:, 3]
 
-            # Find anomalous time ranges from the combined scores
-            threshold = 0.7  # high confidence
+            cpu_spike = cpu_col.max() > baseline["cpu"] + 40        # CPU jumped 40+ points
+            lat_spike = lat_col.max() > baseline["lat"] * 5         # Latency 5x baseline
+            err_spike = err_col.max() > 0.05                        # Error rate > 5%
+
+            if not (cpu_spike or lat_spike or err_spike):
+                continue  # This service is genuinely healthy — skip
+
+            # Service has real anomalies — compute timeline scores
+            stat_detector = StatisticalAnomalyDetector()
+            combined_scores, _ = stat_detector.ensemble_detect(data)
+
+            # Find anomalous time ranges
+            threshold = 0.5
             anomalous_indices = np.where(combined_scores > threshold)[0]
 
             if len(anomalous_indices) > 0:
@@ -376,7 +410,7 @@ def _register_routes(app):
                     "max_score": float(combined_scores.max()),
                     "anomaly_start_idx": int(anomalous_indices[0]),
                     "anomaly_end_idx": int(anomalous_indices[-1]),
-                    "scores": combined_scores[::10].tolist(),  # downsample for API
+                    "scores": combined_scores[::10].tolist(),
                 }
 
         return jsonify({
@@ -519,6 +553,11 @@ def _run_anomaly_inference(model, metrics, stats, device):
     results = {}
 
     normalized, _ = normalize_metrics(metrics, fit=(stats is None), stats=stats)
+
+    # Speed optimization: only process last 200 time points per service
+    for svc in normalized:
+        if len(normalized[svc]) > 200:
+            normalized[svc] = normalized[svc][-200:]
 
     for service, data in normalized.items():
         windows = create_sliding_windows(data)

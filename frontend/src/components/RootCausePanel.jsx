@@ -110,7 +110,7 @@ export default function RootCausePanel({ result, confidenceImpact }) {
             <div>
               <div className="rca-summary__title">{explanation?.summary}</div>
               <div className="rca-summary__confidence">
-                Confidence: {(root_cause.fused_score * 100).toFixed(0)}%
+                Confidence: {confidenceImpact?.confidence ? `${(confidenceImpact.confidence.overall * 100).toFixed(0)}%` : `${Math.min(99, (root_cause.fused_score * 100)).toFixed(0)}%`}
               </div>
             </div>
           </div>

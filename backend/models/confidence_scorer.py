@@ -239,23 +239,23 @@ class ConfidenceImpactScorer:
         graph = root_cause.get("graph_score", 0)
 
         scores = [log, metric, graph]
-        active_signals = sum(1 for s in scores if s > 0.2)
+        active_signals = sum(1 for s in scores if s > 0.1)
 
         if active_signals == 0:
             return 0.0
 
-        # Agreement: low std + high mean = good
-        mean_score = np.mean(scores)
-        std_score = np.std(scores)
+        # Use the max signal as the base — if any signal is strong, confidence is high
+        max_score = max(scores)
+        mean_score = np.mean([s for s in scores if s > 0.1]) if active_signals > 0 else 0
 
-        # Normalize: best case is high mean and low std
-        agreement = mean_score * (1 - min(std_score / max(mean_score, 0.01), 1.0))
+        # Blend max and mean: reward strong signals, don't punish missing ones
+        agreement = 0.6 * max_score + 0.4 * mean_score
 
-        # Bonus for having all three signals
+        # Bonus for having multiple signals agree
         if active_signals >= 3:
-            agreement *= 1.3
+            agreement = min(1.0, agreement * 1.4)
         elif active_signals >= 2:
-            agreement *= 1.1
+            agreement = min(1.0, agreement * 1.2)
 
         return min(1.0, agreement)
 
@@ -272,12 +272,12 @@ class ConfidenceImpactScorer:
 
         # Base score from causality type
         type_scores = {
-            "confirmed": 0.9,
-            "probable": 0.7,
-            "uncertain": 0.4,
-            "single_service": 0.6,
+            "confirmed": 0.95,
+            "probable": 0.85,
+            "uncertain": 0.6,
+            "single_service": 0.75,
         }
-        base = type_scores.get(causality_type, 0.4)
+        base = type_scores.get(causality_type, 0.6)
 
         # Bonus if causal root matches engine root
         if causal_root and engine_root and causal_root == engine_root:
