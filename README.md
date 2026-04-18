@@ -104,10 +104,6 @@ npm install
 npm run dev
 ```
 
-### Access
-- **Dashboard**: http://localhost:5173
-- **API**: http://localhost:5000
-
 ---
 
 ## 📊 Dashboard Features
